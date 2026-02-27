@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useState } from "react";
 
 function DancePage() {
   const [danceStyle, setDanceStyle] = useState(["Standard", "Latein"]);
@@ -19,7 +19,14 @@ function DancePage() {
     "Slowfox",
     "Tango",
   ];
-
+  const [testTänze, setTestTänze] = useState();
+  setTestTänze(
+    danceStyle === "Standard"
+      ? standardTänze
+      : danceStyle === "Latein"
+        ? lateinTänze
+        : [],
+  );
   return (
     <>
       <div className="flex p-4 w-full h-full bg-red-300">
@@ -42,7 +49,7 @@ function DancePage() {
                   Tanz
                 </label>
                 <select className="w-full rounded-lg border-gray-300 bg-white px-4 py-2 shadow-sm">
-                  {lateinTänze.map((dance) => (
+                  {testTänze.map((dance) => (
                     <option key={dance} value={dance}>
                       {dance}
                     </option>
