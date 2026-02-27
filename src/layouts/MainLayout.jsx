@@ -4,8 +4,8 @@ import Sidebar from "../components/Sidebar";
 export default function MainLayout() {
   return (
     <div className="min-h-screen flex">
-      <Sidebar />
-      <main>
+      <Sidebar className="flex-1" />
+      <main className="flex-1">
         <Outlet />
       </main>
     </div>

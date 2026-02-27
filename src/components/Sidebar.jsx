@@ -42,6 +42,18 @@ function Sidebar() {
         >
           Pokemon
         </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `${linkClasses} ${
+              isActive
+                ? "bg-gray-700 text-white"
+                : "hover:bg-gray-700 hover:text-white"
+            }`
+          }
+          to="/dance"
+        >
+          Tanzen
+        </NavLink>
       </nav>
 
       <div className="mt-10 text-sm text-gray-400">© 2026</div>
