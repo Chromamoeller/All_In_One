@@ -1,7 +1,12 @@
+import PokemonCard from "../components/PokemonCard";
+
 function Pokemon() {
   return (
     <>
-      <div>Test</div>
+      <div className="flex flex-wrap">
+        <PokemonCard id="001" name="Bulbasaur" type="grass" />
+        <PokemonCard id="004" name="Charmender" type="fire" />
+      </div>
     </>
   );
 }
