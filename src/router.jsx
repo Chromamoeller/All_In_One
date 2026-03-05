@@ -4,6 +4,7 @@ import Mainpage from "./pages/Mainpage";
 import Sidepage from "./pages/Sidepage";
 import Pokemon from "./pages/Pokemon";
 import DancePage from "./pages/DancePage";
+import FinanzPage from "./pages/FinanzPage";
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ export const router = createBrowserRouter([
       { path: "/side", element: <Sidepage /> },
       { path: "/pokemon", element: <Pokemon /> },
       { path: "/dance", element: <DancePage /> },
+      { path: "/finanz", element: <FinanzPage /> },
     ],
   },
 ]);
