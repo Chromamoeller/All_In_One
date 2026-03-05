@@ -1,12 +1,51 @@
 export default function PokemonCard(props) {
   const color = () => {
     switch (props.type) {
+      case "normal":
+        return "bg-stone-300";
+
       case "fire":
-        return "bg-red-300";
+        return "bg-orange-400";
+
       case "water":
-        return "bg-blue-300";
+        return "bg-sky-400";
+
+      case "electric":
+        return "bg-yellow-300";
+
       case "grass":
-        return "bg-green-300";
+        return "bg-green-400";
+
+      case "ice":
+        return "bg-cyan-200";
+
+      case "fighting":
+        return "bg-red-700 text-white";
+
+      case "poison":
+        return "bg-purple-500 text-white";
+
+      case "ground":
+        return "bg-amber-500";
+
+      case "flying":
+        return "bg-indigo-200";
+
+      case "psychic":
+        return "bg-pink-400";
+
+      case "bug":
+        return "bg-lime-400";
+
+      case "rock":
+        return "bg-yellow-700 text-white";
+
+      case "ghost":
+        return "bg-violet-700 text-white";
+
+      case "dragon":
+        return "bg-indigo-600 text-white";
+
       default:
         return "bg-gray-300";
     }
