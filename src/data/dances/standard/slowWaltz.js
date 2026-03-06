@@ -1,10 +1,10 @@
-export const slowWaltz = {
+const slowWaltz = {
   leader: [
     {
       id: "naturalTurn1to3Leader",
       name: "1–3 der Rechtsdrehung",
       startFoot: "rechts",
-      footFreeAfterFigure: "links",
+      endFootFree: "links",
       dancePosition: "geschlossene Tanzhaltung",
       startAlignment: "Front diagonal zur Wand",
       endAlignment: "Rücken in Tanzrichtung",
@@ -20,7 +20,7 @@ export const slowWaltz = {
       id: "naturalTurn4to6Leader",
       name: "4–6 der Rechtsdrehung",
       startFoot: "links",
-      footFreeAfterFigure: "rechts",
+      endFootFree: "rechts",
       dancePosition: "geschlossene Tanzhaltung",
       startAlignment: "Rücken in Tanzrichtung",
       endAlignment: "Front diagonal zur Mitte",
@@ -36,7 +36,7 @@ export const slowWaltz = {
       id: "reverseTurn1to3Leader",
       name: "1–3 der Linksdrehung",
       startFoot: "links",
-      footFreeAfterFigure: "rechts",
+      endFootFree: "rechts",
       dancePosition: "geschlossene Tanzhaltung",
       startAlignment: "Front diagonal zur Mitte",
       endAlignment: "Rücken in Tanzrichtung",
@@ -52,7 +52,7 @@ export const slowWaltz = {
       id: "reverseTurn4to6Leader",
       name: "4–6 der Linksdrehung",
       startFoot: "rechts",
-      footFreeAfterFigure: "links",
+      endFootFree: "links",
       dancePosition: "geschlossene Tanzhaltung",
       startAlignment: "Rücken in Tanzrichtung",
       endAlignment: "Front schräg zur Wand",
@@ -70,7 +70,7 @@ export const slowWaltz = {
       id: "naturalTurn1to3Follower",
       name: "1–3 der Rechtsdrehung",
       startFoot: "links",
-      footFreeAfterFigure: "rechts",
+      endFootFree: "rechts",
       dancePosition: "geschlossene Tanzhaltung",
       startAlignment: "Rücken diagonal zur Wand",
       endAlignment: "Front in Tanzrichtung",
@@ -86,7 +86,7 @@ export const slowWaltz = {
       id: "naturalTurn4to6Follower",
       name: "4–6 der Rechtsdrehung",
       startFoot: "rechts",
-      footFreeAfterFigure: "links",
+      endFootFree: "links",
       dancePosition: "geschlossene Tanzhaltung",
       startAlignment: "Front in Tanzrichtung",
       endAlignment: "Rücken diagonal zur Mitte",
@@ -102,7 +102,7 @@ export const slowWaltz = {
       id: "reverseTurn1to3Follower",
       name: "1–3 der Linksdrehung",
       startFoot: "rechts",
-      footFreeAfterFigure: "links",
+      endFootFree: "links",
       dancePosition: "geschlossene Tanzhaltung",
       startAlignment: "Rücken diagonal zur Mitte",
       endAlignment: "Front in Tanzrichtung",
@@ -118,7 +118,7 @@ export const slowWaltz = {
       id: "reverseTurn4to6Follower",
       name: "4–6 der Linksdrehung",
       startFoot: "links",
-      footFreeAfterFigure: "rechts",
+      endFootFree: "rechts",
       dancePosition: "geschlossene Tanzhaltung",
       startAlignment: "Front in Tanzrichtung",
       endAlignment: "Rücken diagonal zur Wand",
@@ -132,3 +132,5 @@ export const slowWaltz = {
     },
   ],
 };
+
+export default slowWaltz;

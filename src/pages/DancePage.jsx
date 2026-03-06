@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useActionState } from "react";
+import FigureCard from "../components/FigureCard";
 function DancePage() {
   const danceStyles = ["Standard", "Latein"];
 
@@ -20,6 +20,7 @@ function DancePage() {
   ];
 
   const [selectedDanceStyle, setSelectedDanceStyle] = useState("");
+  const [selectedDance, setSelectedDance] = useState("");
   const [danceOptions, setDanceOptions] = useState([]);
   const [gender] = useState(["Leader", "Follower"]);
 
@@ -60,7 +61,10 @@ function DancePage() {
               <label className="block text-lg font-medium text-gray-700 mb-1 ml-3">
                 Tanz
               </label>
-              <select className="w-60 rounded-lg  bg-white px-4 py-2 shadow-sm">
+              <select
+                onChange={(e) => setSelectedDance(e.target.value)}
+                className="w-60 rounded-lg  bg-white px-4 py-2 shadow-sm"
+              >
                 {selectedDanceStyle === "" ? (
                   <option value="">Bitte erst Tanzstil wählen</option>
                 ) : null}
@@ -87,10 +91,8 @@ function DancePage() {
             </div>
           </div>
         </div>
-        <button className="w-40 bg-gray-400 rounded-md  ">Go</button>
-
         <div className="flex flex-1 w-full bg-amber-950 justify-center">
-          <p className="p-5 text-white">Alle Figuren</p>
+          {selectedDance && <FigureCard dance={selectedDance} />}
         </div>
       </div>
     </div>

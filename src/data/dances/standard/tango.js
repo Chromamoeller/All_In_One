@@ -1,4 +1,4 @@
-export const tango = {
+const tango = {
   leader: [
     {
       id: "tangoWalksLeftFootLeader",
@@ -132,3 +132,4 @@ export const tango = {
     },
   ],
 };
+export default tango;
