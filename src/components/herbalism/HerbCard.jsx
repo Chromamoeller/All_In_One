@@ -23,7 +23,7 @@ function HerbCard({ name, description, imageUrl }) {
       </div>
 
       <button className="bg-emerald-500 text-white px-4 py-2 rounded-lg mt-4 hover:bg-emerald-600 shadow">
-        Test
+        Sammeln
       </button>
     </div>
   );

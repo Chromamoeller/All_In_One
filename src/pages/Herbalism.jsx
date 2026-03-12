@@ -18,6 +18,7 @@ function Herbalism() {
         name="Eucalyptus"
         description="Ein duftender Baum, der für seine heilenden Eigenschaften bekannt ist."
         imageUrl={placeHolderImg}
+        alt="Eucalyptus leaves"
       />
 
       <HerbCard
