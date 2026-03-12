@@ -66,6 +66,54 @@ function Sidebar() {
         >
           Finanzen
         </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `${linkClasses} ${
+              isActive
+                ? "bg-gray-700 text-white"
+                : "hover:bg-gray-700 hover:text-white"
+            }`
+          }
+          to="/herbalism"
+        >
+          Herbalism
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `${linkClasses} ${
+              isActive
+                ? "bg-gray-700 text-white"
+                : "hover:bg-gray-700 hover:text-white"
+            }`
+          }
+          to="/monsterhunter"
+        >
+          Monster Hunter
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `${linkClasses} ${
+              isActive
+                ? "bg-gray-700 text-white"
+                : "hover:bg-gray-700 hover:text-white"
+            }`
+          }
+          to="/hrhub"
+        >
+          HR Hub
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `${linkClasses} ${
+              isActive
+                ? "bg-gray-700 text-white"
+                : "hover:bg-gray-700 hover:text-white"
+            }`
+          }
+          to="/spotify"
+        >
+          Spotify
+        </NavLink>
       </nav>
 
       <div className="mt-10 text-sm text-gray-400">© 2026</div>
