@@ -1,5 +1,5 @@
-import slowWaltz from "../data/dances/standard/slowWaltz";
-import tango from "../data/dances/standard/tango";
+import slowWaltz from "../../data/dances/standard/slowWaltz";
+import tango from "../../data/dances/standard/tango";
 
 function FigureCard({ dance, role = "leader" }) {
   // Mapping vom Tanznamen zu deinen Datendateien
