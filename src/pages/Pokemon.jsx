@@ -1,8 +1,7 @@
 import PokemonCard from "../components/PokemonCard";
 import allPokemon from "../data/pokemonList";
-import { useState } from "react";
+import { useMemo } from "react";
 
-// Fisher-Yates Shuffle
 function shuffleArray(array) {
   const shuffled = array.slice();
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -13,7 +12,7 @@ function shuffleArray(array) {
 }
 
 function PokemonList() {
-  const [shuffledPokemon] = useState(() => shuffleArray(allPokemon));
+  const shuffledPokemon = useMemo(() => shuffleArray(allPokemon), []);
 
   return (
     <div className="flex flex-wrap">
@@ -22,7 +21,7 @@ function PokemonList() {
           key={pokemon.id}
           id={pokemon.id}
           name={pokemon.name}
-          type={pokemon.types[0]}
+          type={pokemon.types?.[0] ?? "unknown"}
           sprite={pokemon.sprite}
         />
       ))}
