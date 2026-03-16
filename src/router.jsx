@@ -9,6 +9,7 @@ import Herbalism from "./pages/Herbalism";
 import Monsterhunter from "./pages/Monsterhunter";
 import HRHub from "./pages/HRHub";
 import Spotify from "./pages/Spotify";
+import DevNotes from "./pages/DevNotes";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
       { path: "/monsterhunter", element: <Monsterhunter /> },
       { path: "/hrhub", element: <HRHub /> },
       { path: "/spotify", element: <Spotify /> },
+      { path: "/devnotes", element: <DevNotes /> },
     ],
   },
 ]);
