@@ -12,7 +12,7 @@ function DancePage() {
       "Slowfox",
       "Tango",
     ],
-    Latein: ["Cha-Cha-Cha", "Rumba", "Jive", "Samba", "Salsa", "Paso Doble"],
+    Latein: ["Cha-Cha-Cha", "Rumba", "Jive", "Samba", "Paso Doble"],
   };
 
   const [selectedDanceStyle, setSelectedDanceStyle] = useState("");
@@ -55,8 +55,14 @@ function DancePage() {
               transition-all duration-200"
               value={selectedDanceStyle}
               onChange={(e) => {
-                setSelectedDanceStyle(e.target.value);
-                setSelectedDance("");
+                const newStyle = e.target.value;
+                setSelectedDanceStyle(newStyle);
+                // Auto-select first dance when style is selected
+                if (newStyle && dances[newStyle]?.length > 0) {
+                  setSelectedDance(dances[newStyle][0]);
+                } else {
+                  setSelectedDance("");
+                }
               }}
             >
               <option value="">Bitte Tanzstil wählen</option>
@@ -115,11 +121,12 @@ function DancePage() {
 
         {/* Figurenanzeige */}
         <div
-          className="bg-white/70 backdrop-blur-md rounded-2xl p-8 
+          className="bg-white/70 backdrop-blur-md rounded-2xl p-8
           border border-indigo-200 shadow-inner"
         >
           {selectedDance ? (
             <FigureCard
+              key={`${selectedDance}-${selectedRole}`}
               dance={selectedDance}
               role={selectedRole.toLowerCase()}
             />
