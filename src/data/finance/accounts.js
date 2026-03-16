@@ -1,0 +1,103 @@
+const initialAccounts = [
+  {
+    id: "cash",
+    title: "Bargeld",
+    logoType: "cash",
+    balance: 1230.5,
+    accent: "from-amber-400 to-orange-500",
+    history: [
+      {
+        id: "c1",
+        type: "income",
+        amount: 100,
+        date: "23. April 2024",
+        category: "Sonstiges",
+        description: "Taschengeld",
+      },
+      {
+        id: "c2",
+        type: "expense",
+        amount: 50,
+        date: "20. April 2024",
+        category: "Essen",
+        description: "Restaurant",
+      },
+      {
+        id: "c3",
+        type: "income",
+        amount: 200,
+        date: "15. April 2024",
+        category: "Sonstiges",
+        description: "Geschenk",
+      },
+    ],
+  },
+  {
+    id: "ing",
+    title: "ING-Konto",
+    logoType: "ing",
+    balance: 8950.75,
+    accent: "from-blue-500 to-indigo-600",
+    history: [
+      {
+        id: "i1",
+        type: "income",
+        amount: 500,
+        date: "24. April 2024",
+        category: "Gehalt",
+        description: "Monatsgehalt",
+      },
+      {
+        id: "i2",
+        type: "expense",
+        amount: 100,
+        date: "22. April 2024",
+        category: "Transport",
+        description: "Benzin",
+      },
+      {
+        id: "i3",
+        type: "income",
+        amount: 1000,
+        date: "18. April 2024",
+        category: "Freiberuflich",
+        description: "Projektzahlung",
+      },
+    ],
+  },
+  {
+    id: "hvb",
+    title: "HVB-Konto",
+    logoType: "hvb",
+    balance: 5420.25,
+    accent: "from-slate-600 to-slate-800",
+    history: [
+      {
+        id: "h1",
+        type: "income",
+        amount: 300,
+        date: "22. April 2024",
+        category: "Rückerstattung",
+        description: "Steuerrückerstattung",
+      },
+      {
+        id: "h2",
+        type: "expense",
+        amount: 400,
+        date: "21. April 2024",
+        category: "Wohnen",
+        description: "Miete",
+      },
+      {
+        id: "h3",
+        type: "income",
+        amount: 200,
+        date: "16. April 2024",
+        category: "Zinsen",
+        description: "Zinszahlung",
+      },
+    ],
+  },
+];
+
+export default initialAccounts;
