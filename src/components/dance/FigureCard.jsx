@@ -1,32 +1,59 @@
 import slowWaltz from "../../data/dances/standard/slowWaltz";
 import tango from "../../data/dances/standard/tango";
 
-function FigureCard({ dance, role = "leader" }) {
-  // Mapping vom Tanznamen zu deinen Datendateien
-  const datasets = {
-    "Langsamer Walzer": slowWaltz,
-    Tango: tango,
-  };
+const DATASETS = {
+  "Langsamer Walzer": slowWaltz,
+  Tango: tango,
+};
 
-  // korrekt: hole das richtige Datenobjekt
-  const dataset = datasets[dance];
+function FigureCard({ dance, role }) {
+  const dataset = DATASETS[dance];
 
-  // wenn kein Datensatz existiert → nichts anzeigen
-  if (!dataset) return null;
+  if (!dataset) {
+    return (
+      <div className="text-white text-lg p-6">
+        Keine Figuren für diesen Tanz gefunden.
+      </div>
+    );
+  }
 
-  // Figuren basierend auf Leader/Follower
-  const figures = dataset[role] ?? [];
+  const normalizedRole = role?.toLowerCase();
+  const figures = dataset[normalizedRole] ?? [];
+
+  if (figures.length === 0) {
+    return (
+      <div className="text-white text-lg p-6">
+        Keine Figuren für diese Rolle vorhanden.
+      </div>
+    );
+  }
 
   return (
-    <>
-      <div className="flex flex-wrap w-full justify-around">
-        {figures.map((fig) => (
-          <div key={fig.id} className="w-60 bg-blue-300 mt-5 p-2 rounded">
-            <p className="text-2xl text-amber-950">{fig.name}</p>
-          </div>
-        ))}
-      </div>
-    </>
+    <div className="w-full flex flex-wrap justify-center gap-8 py-6">
+      {figures.map((fig) => (
+        <div
+          key={fig.id ?? fig.name}
+          className="
+            w-64 p-5 rounded-2xl
+            bg-gradient-to-br from-cyan-400 via-teal-400 to-emerald-500
+            shadow-xl shadow-emerald-900/40
+            border border-white/20
+            transform transition-all duration-300
+            hover:scale-105 hover:-translate-y-1 hover:shadow-2xl
+            hover:shadow-cyan-500/40
+            text-white
+          "
+        >
+          <p className="text-2xl font-bold tracking-wide drop-shadow-sm mb-2">
+            {fig.name}
+          </p>
+
+          <div className="h-1 w-20 bg-white/60 rounded mb-3"></div>
+
+          <p className="text-white/90 text-sm">Figur-ID: {fig.id}</p>
+        </div>
+      ))}
+    </div>
   );
 }
 

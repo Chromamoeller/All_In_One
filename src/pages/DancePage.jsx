@@ -1,98 +1,133 @@
-import { useState, useEffect, useActionState } from "react";
-import FigureCard from "../components/dance/FigureCard";
+import { useState, useMemo } from "react";
+import FigureCard from "../components/FigureCard";
+
 function DancePage() {
   const danceStyles = ["Standard", "Latein"];
 
-  const lateinTänze = [
-    "Cha-Cha-Cha",
-    "Rumba",
-    "Jive",
-    "Samba",
-    "Salsa",
-    "Paso Doble",
-  ];
-  const standardTänze = [
-    "Langsamer Walzer",
-    "Wiener Walzer",
-    "Quickstepp",
-    "Slowfox",
-    "Tango",
-  ];
+  const dances = {
+    Standard: [
+      "Langsamer Walzer",
+      "Wiener Walzer",
+      "Quickstepp",
+      "Slowfox",
+      "Tango",
+    ],
+    Latein: ["Cha-Cha-Cha", "Rumba", "Jive", "Samba", "Salsa", "Paso Doble"],
+  };
 
   const [selectedDanceStyle, setSelectedDanceStyle] = useState("");
   const [selectedDance, setSelectedDance] = useState("");
-  const [danceOptions, setDanceOptions] = useState([]);
-  const [gender] = useState(["Leader", "Follower"]);
+  const [selectedRole, setSelectedRole] = useState("Leader");
 
-  useEffect(() => {
-    if (selectedDanceStyle === "Standard") {
-      setDanceOptions(standardTänze);
-    } else if (selectedDanceStyle === "Latein") {
-      setDanceOptions(lateinTänze);
-    } else {
-      setDanceOptions([]);
-    }
+  const danceOptions = useMemo(() => {
+    return dances[selectedDanceStyle] ?? [];
   }, [selectedDanceStyle]);
 
   return (
-    <div className="flex p-4 w-full h-full bg-red-300">
-      <div className="flex flex-col items-center justify-center bg-blue-200 w-full p-4">
-        <div className="flex flex-1 w-full justify-center gap-20 items-center bg-amber-400">
-          <div className="flex w-full h-full  ">
-            <div className="flex justify-center items-center flex-col  flex-1">
-              <label className="block text-lg font-medium text-gray-700 mb-1 ml-3">
-                Tanzart
-              </label>
-              <select
-                className=" w-60 rounded-lg  bg-white px-4 py-2 shadow-sm"
-                value={selectedDanceStyle}
-                onChange={(e) => setSelectedDanceStyle(e.target.value)}
-              >
-                <option value="">Bitte Tanzstil wählen</option>
-                {danceStyles.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </div>
+    <div
+      className="w-full min-h-screen 
+      bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-300 
+      flex justify-center items-start p-10"
+    >
+      <div
+        className="w-full max-w-4xl 
+        bg-white/80 backdrop-blur-xl 
+        rounded-3xl shadow-2xl p-10 
+        border border-white/40 
+        transition-all duration-300"
+      >
+        {/* Header */}
+        <h1 className="text-4xl font-extrabold text-indigo-900 text-center mb-10 tracking-tight drop-shadow-sm">
+          Tanzfiguren auswählen
+        </h1>
 
-            <div className="flex justify-center items-center flex-col  flex-1">
-              <label className="block text-lg font-medium text-gray-700 mb-1 ml-3">
-                Tanz
-              </label>
-              <select
-                onChange={(e) => setSelectedDance(e.target.value)}
-                className="w-60 rounded-lg  bg-white px-4 py-2 shadow-sm"
-              >
-                {selectedDanceStyle === "" ? (
-                  <option value="">Bitte erst Tanzstil wählen</option>
-                ) : null}
+        {/* Auswahlfelder */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+          {/* Tanzart */}
+          <div className="flex flex-col">
+            <label className="text-indigo-900 text-sm font-semibold mb-2">
+              Tanzart
+            </label>
+            <select
+              className="rounded-xl bg-white px-4 py-3 border border-indigo-300 
+              shadow-md text-indigo-900 
+              focus:ring-4 focus:ring-indigo-400 focus:border-indigo-500 
+              transition-all duration-200"
+              value={selectedDanceStyle}
+              onChange={(e) => {
+                setSelectedDanceStyle(e.target.value);
+                setSelectedDance("");
+              }}
+            >
+              <option value="">Bitte Tanzstil wählen</option>
+              {danceStyles.map((style) => (
+                <option key={style} value={style}>
+                  {style}
+                </option>
+              ))}
+            </select>
+          </div>
 
-                {danceOptions.map((dance) => (
-                  <option key={dance} value={dance}>
-                    {dance}
-                  </option>
-                ))}
-              </select>
-            </div>
+          {/* Tanz */}
+          <div className="flex flex-col">
+            <label className="text-indigo-900 text-sm font-semibold mb-2">
+              Tanz
+            </label>
+            <select
+              className="rounded-xl bg-white px-4 py-3 border border-indigo-300 
+              shadow-md text-indigo-900 
+              focus:ring-4 focus:ring-indigo-400 focus:border-indigo-500 
+              transition-all duration-200"
+              value={selectedDance}
+              onChange={(e) => setSelectedDance(e.target.value)}
+              disabled={!selectedDanceStyle}
+            >
+              {!selectedDanceStyle && (
+                <option value="">Bitte erst Tanzstil wählen</option>
+              )}
 
-            <div className="flex justify-center items-center flex-col  flex-1">
-              <label className="block text-lg font-medium text-gray-700 mb-1 ml-3 ">
-                Geschlecht
-              </label>
-              <select className="w-60 rounded-lg  bg-white px-4 py-2 shadow-sm">
-                {gender.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </div>
+              {danceOptions.map((dance) => (
+                <option key={dance} value={dance}>
+                  {dance}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Rolle */}
+          <div className="flex flex-col">
+            <label className="text-indigo-900 text-sm font-semibold mb-2">
+              Rolle
+            </label>
+            <select
+              className="rounded-xl bg-white px-4 py-3 border border-indigo-300 
+              shadow-md text-indigo-900 
+              focus:ring-4 focus:ring-indigo-400 focus:border-indigo-500 
+              transition-all duration-200"
+              value={selectedRole}
+              onChange={(e) => setSelectedRole(e.target.value)}
+            >
+              <option value="Leader">Leader</option>
+              <option value="Follower">Follower</option>
+            </select>
           </div>
         </div>
-        <div className="flex flex-1 w-full bg-amber-950 justify-center">
-          {selectedDance && <FigureCard dance={selectedDance} />}
+
+        {/* Figurenanzeige */}
+        <div
+          className="bg-white/70 backdrop-blur-md rounded-2xl p-8 
+          border border-indigo-200 shadow-inner"
+        >
+          {selectedDance ? (
+            <FigureCard
+              dance={selectedDance}
+              role={selectedRole.toLowerCase()}
+            />
+          ) : (
+            <p className="text-indigo-700 text-center text-lg">
+              Bitte wähle einen Tanz aus.
+            </p>
+          )}
         </div>
       </div>
     </div>
