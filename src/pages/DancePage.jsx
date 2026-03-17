@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import FigureCard from "../components/FigureCard";
+import FigureCard from "../components/dance/FigureCard";
 
 function DancePage() {
   const danceStyles = ["Standard", "Latein"];
