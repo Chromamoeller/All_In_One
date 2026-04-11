@@ -3,7 +3,7 @@ const initialAccounts = [
     id: "cash",
     title: "Bargeld",
     logoType: "cash",
-    balance: 1230.5,
+    balance: 6.5,
     accent: "from-amber-400 to-orange-500",
     history: [
       {

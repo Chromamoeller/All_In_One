@@ -12,6 +12,7 @@ function Sidebar() {
     { to: "/monsterhunter", label: "Monster Hunter" },
     { to: "/hrhub", label: "HR Hub" },
     { to: "/spotify", label: "Spotify" },
+    { to: "/levelmaster", label: "Level Master" },
   ];
 
   const getNavLinkClass = ({ isActive }) =>

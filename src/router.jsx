@@ -10,6 +10,8 @@ import Monsterhunter from "./pages/Monsterhunter";
 import HRHub from "./pages/HRHub";
 import Spotify from "./pages/Spotify";
 import DevNotes from "./pages/DevNotes";
+import LevelMaster from "./pages/LevelMaster";
+import SelectedPokemon from "./pages/SelectedPokemon";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +27,8 @@ export const router = createBrowserRouter([
       { path: "/hrhub", element: <HRHub /> },
       { path: "/spotify", element: <Spotify /> },
       { path: "/devnotes", element: <DevNotes /> },
+      { path: "/levelmaster", element: <LevelMaster /> },
+      { path: "/levelmaster/2", element: <SelectedPokemon /> },
     ],
   },
 ]);
