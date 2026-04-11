@@ -1,4 +1,5 @@
 import usePokemonStore from "../stores/pokemonStore";
+import { Link } from "react-router-dom";
 
 function SelectedPokemon() {
   const selectedPokemon = usePokemonStore((state) => state.selectedPokemon);
@@ -26,11 +27,13 @@ function SelectedPokemon() {
         </div>
       </div>
       <div className="flex items-center flex-3">
-        <div className="flex items-center flex-1 rounded-4xl border border-black h-140 mx-5">
-          <p className="text-center text-white text-3xl ">
-            Wildes Pokemon Fangen/Kämpfen
-          </p>
-        </div>
+        <Link to="/encounterPokemon">
+          <div className="flex items-center flex-1 rounded-4xl border border-black h-140 mx-5">
+            <p className="text-center text-white text-3xl ">
+              Wildes Pokemon Fangen/Kämpfen
+            </p>
+          </div>
+        </Link>
         <div className="flex items-center justify-center flex-1 rounded-4xl border border-black h-140 mx-5">
           <p className=" text-white text-3xl ">Trainerkampf</p>
         </div>

@@ -12,6 +12,7 @@ import Spotify from "./pages/Spotify";
 import DevNotes from "./pages/DevNotes";
 import LevelMaster from "./pages/LevelMaster";
 import SelectedPokemon from "./pages/SelectedPokemon";
+import EncounterPokemon from "./pages/encounterPokemon";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
       { path: "/devnotes", element: <DevNotes /> },
       { path: "/levelmaster", element: <LevelMaster /> },
       { path: "/levelmaster/2", element: <SelectedPokemon /> },
+      { path: "/encounterPokemon", element: <EncounterPokemon /> },
     ],
   },
 ]);
