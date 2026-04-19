@@ -22,16 +22,19 @@ function EncounterPokemon() {
     <div className="flex h-full">
       <div className="flex flex-col h-full justify-center items-center flex-1 border border-black ">
         <div className="flex-1 w-full"> 1</div>
-        <div className="flex-1 bg-green-500 w-full">
-          <img src={`${selectedPokemon.linkToImg}`} alt="" />
-          <p>{selectedPokemon.name}</p>
-          <div>test</div>
+        <div className="flex flex-col flex-1 justify-end bg-green-500 w-full">
+          <div className="mb-39 ml-39">
+            <img src={`${selectedPokemon.linkToImg}`} alt="" />
+            <p>{selectedPokemon.name}</p>
+          </div>
         </div>
       </div>
       <div className="flex flex-col h-full justify-center items-center flex-1 border border-black">
-        <div className="flex-1 bg-green-500 w-full">
-          <img src={`${randomPokemon[0].linkToImg}`} alt="" />
-          <p>{randomPokemon[0].name}</p>
+        <div className="flex justify-end flex-1  bg-green-500 w-full">
+          <div className="mt-19 mr-39">
+            <img src={`${randomPokemon[0].linkToImg}`} alt="" />
+            <p>{randomPokemon[0].name}</p>
+          </div>
         </div>
         <div className="flex-1 w-full">2</div>
       </div>

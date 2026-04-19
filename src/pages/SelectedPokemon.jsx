@@ -27,19 +27,23 @@ function SelectedPokemon() {
         </div>
       </div>
       <div className="flex items-center flex-3">
-        <Link to="/encounterPokemon">
+        <Link className="flex-1" to="/encounterPokemon">
           <div className="flex items-center flex-1 rounded-4xl border border-black h-140 mx-5">
             <p className="text-center text-white text-3xl ">
               Wildes Pokemon Fangen/Kämpfen
             </p>
           </div>
         </Link>
-        <div className="flex items-center justify-center flex-1 rounded-4xl border border-black h-140 mx-5">
-          <p className=" text-white text-3xl ">Trainerkampf</p>
-        </div>
-        <div className="flex items-center justify-center flex-1 rounded-4xl border border-black h-140 mx-5">
-          <p className="text-center text-white text-3xl ">Arena Kampf</p>
-        </div>
+        <Link className="flex-1" to="/encounterPokemon">
+          <div className="flex justify-center items-center flex-1 rounded-4xl border border-black h-140 mx-5">
+            <p className="text-center text-white text-3xl ">Trainer Kampf</p>
+          </div>
+        </Link>
+        <Link className="flex-1" to="/encounterPokemon">
+          <div className="flex justify-center items-center flex-1 rounded-4xl border border-black h-140 mx-5">
+            <p className="text-center text-white text-3xl ">Arena Kampf</p>
+          </div>
+        </Link>
       </div>
       <div className="flex-1">
         <div className="flex justify-center relative items-center bg-white h-55">
