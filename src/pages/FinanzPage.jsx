@@ -1,57 +1,18 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import initialAccounts from "../data/finance/accounts";
+import categories from "../data/finance/categories";
 
 const formatEUR = (value) =>
   value.toLocaleString("de-DE", { style: "currency", currency: "EUR" });
-
-const initialAccounts = [
-  {
-    id: "cash",
-    title: "Bargeld",
-    logoType: "cash",
-    balance: 1230.5,
-    accent: "bg-amber-50",
-    history: [
-      { id: "c1", type: "in", amount: 100, date: "23. April 2024" },
-      { id: "c2", type: "out", amount: 50, date: "20. April 2024" },
-      { id: "c3", type: "in", amount: 200, date: "15. April 2024" },
-    ],
-  },
-  {
-    id: "ing",
-    title: "ING-Konto",
-    logoType: "ing",
-    balance: 8950.75,
-    accent: "bg-sky-50",
-    history: [
-      { id: "i1", type: "in", amount: 500, date: "24. April 2024" },
-      { id: "i2", type: "out", amount: 100, date: "22. April 2024" },
-      { id: "i3", type: "in", amount: 1000, date: "18. April 2024" },
-    ],
-  },
-  {
-    id: "hvb",
-    title: "HVB-Konto",
-    logoType: "hvb",
-    balance: 5420.25,
-    accent: "bg-slate-50",
-    history: [
-      { id: "h1", type: "in", amount: 300, date: "22. April 2024" },
-      { id: "h2", type: "out", amount: 400, date: "21. April 2024" },
-      { id: "h3", type: "in", amount: 200, date: "16. April 2024" },
-    ],
-  },
-];
 
 function Logo({ type }) {
   if (type === "ing") {
     return (
       <div className="flex items-center gap-2">
-        <span className="text-3xl font-extrabold tracking-wide text-[#1d3b73]">
-          ING
-        </span>
-        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-orange-100 text-orange-600">
-          🦁
-        </span>
+        <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
+          <span className="text-white font-bold text-sm">ING</span>
+        </div>
+        <span className="font-semibold text-gray-800">ING Bank</span>
       </div>
     );
   }
@@ -59,97 +20,208 @@ function Logo({ type }) {
   if (type === "hvb") {
     return (
       <div className="flex items-center gap-2">
-        <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-red-100 text-red-600">
-          {/* simple "swirl" placeholder */}
-          <svg
-            viewBox="0 0 24 24"
-            className="h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path d="M20 12a8 8 0 1 1-8-8c2.8 0 5.2 1.4 6.6 3.6" />
-            <path d="M20 6v6h-6" />
-          </svg>
-        </span>
-        <span className="text-3xl font-extrabold tracking-wide text-slate-800">
-          HVB
-        </span>
+        <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center">
+          <span className="text-white font-bold text-sm">HVB</span>
+        </div>
+        <span className="font-semibold text-gray-800">HypoVereinsbank</span>
       </div>
     );
   }
 
   // cash
   return (
-    <div className="inline-flex items-center gap-3">
-      <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100 text-amber-700">
-        💶
-      </span>
+    <div className="flex items-center gap-2">
+      <div className="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center">
+        <span className="text-2xl">💵</span>
+      </div>
+      <span className="font-semibold text-gray-800">Bargeld</span>
     </div>
   );
 }
 
-function TxRow({ tx }) {
-  const sign = tx.type === "in" ? "+" : "−";
-  const amountClass = tx.type === "in" ? "text-emerald-600" : "text-red-600";
+function TransactionRow({ tx }) {
+  const isIncome = tx.type === "income";
+  const amountClass = isIncome ? "text-green-600" : "text-red-600";
+  const bgClass = isIncome
+    ? "bg-green-50 border-green-200"
+    : "bg-red-50 border-red-200";
 
   return (
-    <div className="flex items-center justify-between py-2">
-      <div className={`font-semibold ${amountClass}`}>
-        {sign} {formatEUR(tx.amount)}
+    <div className={`p-3 rounded-lg border ${bgClass} mb-2`}>
+      <div className="flex justify-between items-start">
+        <div className="flex-1">
+          <div className="font-medium text-gray-900">{tx.description}</div>
+          <div className="text-sm text-gray-500">
+            {tx.category} • {tx.date}
+          </div>
+        </div>
+        <div className={`font-bold text-lg ${amountClass}`}>
+          {isIncome ? "+" : "-"}
+          {formatEUR(tx.amount)}
+        </div>
       </div>
-      <div className="text-sm text-slate-500">{tx.date}</div>
     </div>
   );
 }
 
-function AccountCard({ account, onDeposit, onWithdraw }) {
+function AccountCard({ account, onTransaction }) {
+  const recentTransactions = account.history.slice(0, 3);
+  const monthlyChange = account.history
+    .filter((tx) => {
+      const txDate = new Date(tx.date.split(".").reverse().join("-"));
+      const now = new Date();
+      return (
+        txDate.getMonth() === now.getMonth() &&
+        txDate.getFullYear() === now.getFullYear()
+      );
+    })
+    .reduce(
+      (sum, tx) => sum + (tx.type === "income" ? tx.amount : -tx.amount),
+      0,
+    );
+
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
-      <div className="p-6">
-        <div className="flex items-center justify-center">
-          <Logo type={account.logoType} />
-        </div>
-
-        <div className="mt-4 text-center">
-          <div className="text-lg font-semibold text-slate-600">
-            {account.title}
-          </div>
-          <div className="mt-2 text-4xl font-extrabold tracking-tight text-slate-800">
-            {formatEUR(account.balance)}
-          </div>
-        </div>
-
-        <div className="mt-5 flex gap-3">
-          <button
-            onClick={() => onDeposit(account.id)}
-            className="flex-1 rounded-xl bg-emerald-600 px-4 py-2.5 font-semibold text-white shadow-sm hover:bg-emerald-700 active:scale-[0.99]"
-          >
-            + Hinzufügen
-          </button>
-          <button
-            onClick={() => onWithdraw(account.id)}
-            className="flex-1 rounded-xl bg-red-600 px-4 py-2.5 font-semibold text-white shadow-sm hover:bg-red-700 active:scale-[0.99]"
-          >
-            − Abziehen
-          </button>
+    <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+      <div className="flex items-center justify-between mb-4">
+        <Logo type={account.logoType} />
+        <div
+          className={`px-3 py-1 rounded-full text-xs font-semibold ${
+            monthlyChange >= 0
+              ? "bg-green-100 text-green-700"
+              : "bg-red-100 text-red-700"
+          }`}
+        >
+          {monthlyChange >= 0 ? "+" : ""}
+          {formatEUR(monthlyChange)}
         </div>
       </div>
 
-      <div className={`border-t border-slate-200 ${account.accent}`}>
-        <div className="flex items-center justify-between px-6 py-3">
-          <div className="font-semibold text-slate-700">Buchungen</div>
-          {/* Optional: hier könnte ein Zeitraum stehen */}
-          <div className="text-sm text-slate-500"> </div>
+      <div className="mb-4">
+        <div className="text-sm text-gray-500 mb-1">{account.title}</div>
+        <div className="text-3xl font-bold text-gray-900">
+          {formatEUR(account.balance)}
         </div>
+      </div>
 
-        <div className="px-6 pb-5">
-          <div className="divide-y divide-slate-200">
-            {account.history.map((tx) => (
-              <TxRow key={tx.id} tx={tx} />
-            ))}
-          </div>
+      <div className="flex gap-3 mb-4">
+        <button
+          onClick={() => onTransaction(account.id, "income")}
+          className="flex-1 bg-green-100 hover:bg-green-200 text-green-700 font-medium py-2 px-4 rounded-lg transition-colors"
+        >
+          Einzahlen
+        </button>
+        <button
+          onClick={() => onTransaction(account.id, "expense")}
+          className="flex-1 bg-red-100 hover:bg-red-200 text-red-700 font-medium py-2 px-4 rounded-lg transition-colors"
+        >
+          Ausgeben
+        </button>
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <h4 className="font-semibold text-gray-700">Letzte Buchungen</h4>
+          <span className="text-sm text-gray-500">
+            {recentTransactions.length} von {account.history.length}
+          </span>
         </div>
+        <div className="space-y-2">
+          {recentTransactions.map((tx) => (
+            <TransactionRow key={tx.id} tx={tx} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BudgetOverview({ accounts }) {
+  const TotalBalance = accounts.reduce((sum, acc) => sum + acc.balance, 0);
+  const monthlyIncome = accounts.reduce(
+    (sum, acc) =>
+      sum +
+      acc.history
+        .filter((tx) => {
+          const txDate = new Date(tx.date.split(".").reverse().join("-"));
+          const now = new Date();
+          return (
+            txDate.getMonth() === now.getMonth() &&
+            txDate.getFullYear() === now.getFullYear() &&
+            tx.type === "income"
+          );
+        })
+        .reduce((txSum, tx) => txSum + tx.amount, 0),
+    0,
+  );
+
+  const monthlyExpenses = accounts.reduce(
+    (sum, acc) =>
+      sum +
+      acc.history
+        .filter((tx) => {
+          const txDate = new Date(tx.date.split(".").reverse().join("-"));
+          const now = new Date();
+          return (
+            txDate.getMonth() === now.getMonth() &&
+            txDate.getFullYear() === now.getFullYear() &&
+            tx.type === "expense"
+          );
+        })
+        .reduce((txSum, tx) => txSum + tx.amount, 0),
+    0,
+  );
+
+  const SavingsRate =
+    monthlyIncome > 0
+      ? ((monthlyIncome - monthlyExpenses) / monthlyIncome) * 100
+      : 0;
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-2xl">💰</span>
+          <span className="text-sm text-gray-500">Gesamt</span>
+        </div>
+        <div className="text-xl font-bold text-gray-900">
+          {formatEUR(TotalBalance)}
+        </div>
+        <div className="text-sm text-gray-500">Gesamtvermögen</div>
+      </div>
+
+      <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-2xl">📈</span>
+          <span className="text-sm text-gray-500">Einnahmen</span>
+        </div>
+        <div className="text-xl font-bold text-green-600">
+          {formatEUR(monthlyIncome)}
+        </div>
+        <div className="text-sm text-gray-500">Dieser Monat</div>
+      </div>
+
+      <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-2xl">📉</span>
+          <span className="text-sm text-gray-500">Ausgaben</span>
+        </div>
+        <div className="text-xl font-bold text-red-600">
+          {formatEUR(monthlyExpenses)}
+        </div>
+        <div className="text-sm text-gray-500">Dieser Monat</div>
+      </div>
+
+      <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-2xl">🎯</span>
+          <span className="text-sm text-gray-500">Sparerate</span>
+        </div>
+        <div
+          className={`text-xl font-bold ${SavingsRate >= 20 ? "text-green-600" : SavingsRate >= 0 ? "text-yellow-600" : "text-red-600"}`}
+        >
+          {SavingsRate.toFixed(1)}%
+        </div>
+        <div className="text-sm text-gray-500">Sparquote</div>
       </div>
     </div>
   );
@@ -158,12 +230,7 @@ function AccountCard({ account, onDeposit, onWithdraw }) {
 function FinanzPage() {
   const [accounts, setAccounts] = useState(initialAccounts);
 
-  const total = useMemo(
-    () => accounts.reduce((sum, a) => sum + a.balance, 0),
-    [accounts],
-  );
-
-  const addTx = (accountId, txType, amount) => {
+  const addTransaction = (accountId, type, amount, category, description) => {
     setAccounts((prev) =>
       prev.map((acc) => {
         if (acc.id !== accountId) return acc;
@@ -177,68 +244,90 @@ function FinanzPage() {
 
         const tx = {
           id: `${accountId}-${Date.now()}`,
-          type: txType,
+          type,
           amount,
+          category,
+          description,
           date: dateStr,
         };
 
-        const nextBalance =
-          txType === "in" ? acc.balance + amount : acc.balance - amount;
+        const balanceChange = type === "income" ? amount : -amount;
+        const nextBalance = Math.max(
+          0,
+          Number((acc.balance + balanceChange).toFixed(2)),
+        );
 
         return {
           ...acc,
-          balance: Math.max(0, Number(nextBalance.toFixed(2))),
-          history: [tx, ...acc.history].slice(0, 5), // nur letzte 5 anzeigen
+          balance: nextBalance,
+          history: [tx, ...acc.history],
         };
       }),
     );
   };
 
-  const handleDeposit = (accountId) => {
-    const raw = window.prompt("Betrag einzahlen (€):", "100");
-    if (!raw) return;
-    const amount = Number(String(raw).replace(",", "."));
-    if (!Number.isFinite(amount) || amount <= 0) return;
-    addTx(accountId, "in", Number(amount.toFixed(2)));
-  };
+  const handleTransaction = (accountId, type) => {
+    const account = accounts.find((acc) => acc.id === accountId);
+    if (!account) return;
 
-  const handleWithdraw = (accountId) => {
-    const raw = window.prompt("Betrag abziehen (€):", "50");
-    if (!raw) return;
-    const amount = Number(String(raw).replace(",", "."));
-    if (!Number.isFinite(amount) || amount <= 0) return;
-    addTx(accountId, "out", Number(amount.toFixed(2)));
+    // Create a modal-like transaction form
+    const amount = prompt(
+      `${type === "income" ? "Einzahlung" : "Ausgabe"} Betrag (€):`,
+      "100",
+    );
+    if (!amount) return;
+
+    const numAmount = Number(String(amount).replace(",", "."));
+    if (!Number.isFinite(numAmount) || numAmount <= 0) return;
+
+    const category = prompt("Kategorie:", categories[0]);
+    if (!category) return;
+
+    const description = prompt("Beschreibung:", "");
+    if (description === null) return;
+
+    addTransaction(
+      accountId,
+      type,
+      Number(numAmount.toFixed(2)),
+      category,
+      description || `${type === "income" ? "Einzahlung" : "Ausgabe"}`,
+    );
   };
 
   return (
-    <div className="min-h-screen bg-slate-100">
-      <div className="mx-auto max-w-6xl px-6 py-14">
-        <h1 className="text-center text-5xl font-extrabold tracking-tight text-slate-700">
-          Finanzübersicht
-        </h1>
-        <div className="mx-auto mt-6 h-px max-w-4xl bg-slate-300/60" />
-
-        <div className="mt-10 text-center">
-          <div className="text-sm font-semibold text-slate-500">
-            Gesamtvermögen
-          </div>
-          <div className="mt-1 text-2xl font-extrabold text-slate-800">
-            {formatEUR(total)}
-          </div>
+    <div className="min-h-screen bg-gray-50">
+      <div className="mx-auto max-w-7xl px-6 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            Finanz Dashboard
+          </h1>
+          <p className="text-lg text-gray-600">
+            Verwalte deine Finanzen einfach und übersichtlich
+          </p>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <BudgetOverview accounts={accounts} />
+
+        <div className="grid gap-6 lg:grid-cols-3">
           {accounts.map((acc) => (
             <AccountCard
               key={acc.id}
               account={acc}
-              onDeposit={handleDeposit}
-              onWithdraw={handleWithdraw}
+              onTransaction={handleTransaction}
             />
           ))}
+        </div>
+
+        <div className="text-center mt-12 text-gray-500">
+          <p className="text-sm">
+            💡 Tipp: Klicke auf "Einzahlen" oder "Ausgeben" um neue
+            Transaktionen hinzuzufügen
+          </p>
         </div>
       </div>
     </div>
   );
 }
+
 export default FinanzPage;

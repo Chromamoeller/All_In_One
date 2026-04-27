@@ -1,9 +1,25 @@
 import slowWaltz from "../../data/dances/standard/slowWaltz";
 import tango from "../../data/dances/standard/tango";
+import quickstepp from "../../data/dances/standard/quickstepp";
+import slowFoxtrot from "../../data/dances/standard/slowFoxtrot";
+import vienneseWalz from "../../data/dances/standard/vienneseWalz";
+import chaChaCha from "../../data/dances/latein/chaChaCha";
+import rumba from "../../data/dances/latein/rumba";
+import samba from "../../data/dances/latein/samba";
+import jive from "../../data/dances/latein/jive";
+import pasoDoble from "../../data/dances/latein/pasoDoble";
 
 const DATASETS = {
   "Langsamer Walzer": slowWaltz,
   Tango: tango,
+  Quickstepp: quickstepp,
+  Slowfox: slowFoxtrot,
+  "Wiener Walzer": vienneseWalz,
+  "Cha-Cha-Cha": chaChaCha,
+  Rumba: rumba,
+  Samba: samba,
+  Jive: jive,
+  "Paso Doble": pasoDoble,
 };
 
 function FigureCard({ dance, role }) {
