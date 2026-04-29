@@ -27,7 +27,7 @@ function SelectedPokemon() {
         </div>
       </div>
       <div className="flex items-center flex-3">
-        <Link className="flex-1" to="/encounterPokemon">
+        <Link className="flex-1" to="/encounter-pokemon">
           <div className="flex items-center flex-1 rounded-4xl border border-black h-140 mx-5">
             <p className="text-center text-white text-3xl ">
               Wildes Pokemon Fangen/Kämpfen

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import credentials from "../data/login/credentials.json";
 export default function LoginPage() {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(true);
   const [userEmail, setUserEmail] = useState("");
   const [userPpassword, setUserPassword] = useState("");
   const [error, setError] = useState("");
