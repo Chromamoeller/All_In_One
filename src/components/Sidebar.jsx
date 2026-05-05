@@ -4,7 +4,6 @@ function Sidebar() {
   const navItems = [
     { to: "/", label: "Dashboard" },
     { to: "/devnotes", label: "DevNotes" },
-    { to: "/pokemon", label: "Pokemon" },
     { to: "/dance", label: "Tanzen" },
     { to: "/finanz", label: "Finanzen" },
     { to: "/herbalism", label: "Herbalism" },
@@ -12,7 +11,7 @@ function Sidebar() {
     { to: "/hrhub", label: "HR Hub" },
     { to: "/spotify", label: "Spotify" },
     { to: "/levelmaster", label: "Level Master" },
-    { to: "/lessons", label: "Lessons" },
+    { to: "/login", label: "Login" },
   ];
 
   const getNavLinkClass = ({ isActive }) =>
@@ -24,31 +23,45 @@ function Sidebar() {
     ].join(" ");
 
   return (
-    <aside className="flex min-h-screen w-72 flex-col border-r border-zinc-800 bg-zinc-950 px-5 py-6 ">
-      <div className="sticky top-6">
-        <div className="mb-8 border-b border-zinc-800 pb-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-            Portfolio
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">
-            All In One
-          </h2>
-          <p className="mt-2 text-sm text-zinc-400">
-            Projekte, Ideen und technische Lösungen
-          </p>
-        </div>
+    <aside className="fixed left-0 top-0 z-50 flex h-screen w-72 flex-col border-r border-zinc-800 bg-zinc-950 px-5 py-6">
+      {/* Scrollbar verstecken */}
+      <style>
+        {`
+          .no-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+          .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}
+      </style>
 
-        <nav className="flex flex-col gap-2">
-          {navItems.map((item) => (
-            <NavLink key={item.to} to={item.to} className={getNavLinkClass}>
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
+      <div className="mb-8 border-b border-zinc-800 pb-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
+          Portfolio
+        </p>
 
-        <div className="mt-auto border-t border-zinc-800 pt-6">
-          <p className="text-xs text-zinc-500">© 2026 Christian</p>
-        </div>
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">
+          All In One
+        </h2>
+
+        <p className="mt-2 text-sm text-zinc-400">
+          Projekte, Ideen und technische Lösungen
+        </p>
+      </div>
+
+      {/* Wichtig: no-scrollbar hier */}
+      <nav className="no-scrollbar flex flex-1 flex-col gap-2 overflow-y-auto">
+        {navItems.map((item) => (
+          <NavLink key={item.to} to={item.to} className={getNavLinkClass}>
+            {item.label}
+          </NavLink>
+        ))}
+      </nav>
+
+      <div className="mt-6 border-t border-zinc-800 pt-6">
+        <p className="text-xs text-zinc-500">© 2026 Christian</p>
       </div>
     </aside>
   );
