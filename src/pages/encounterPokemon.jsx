@@ -1,5 +1,5 @@
 import usePokemonStore from "../stores/pokemonStore";
-import pokemonList from "../data/pokemonList_de_151";
+import pokemonList from "../data/pokemon/pokemonAPI/pokemonList_de_151";
 
 function EncounterPokemon() {
   const selectedPokemon = usePokemonStore((state) => state.selectedPokemon);

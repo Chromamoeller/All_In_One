@@ -1,6 +1,6 @@
-import pokemonList from "../data/pokemonList_de_151";
+import pokemonList from "../data/pokemon/pokemonAPI/pokemonList_de_151";
 import { useState } from "react";
-import attackPool from "../data/pokemonAttacks";
+import attackPool from "../data/pokemon/pokemonAPI/pokemonAttacks";
 import usePokemonStore from "../stores/pokemonStore";
 import { Link } from "react-router-dom";
 
