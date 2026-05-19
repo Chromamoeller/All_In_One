@@ -4,7 +4,6 @@ function Sidebar() {
   const navItems = [
     { to: "/", label: "Dashboard" },
     { to: "/devnotes", label: "DevNotes" },
-    { to: "/pokemon", label: "Pokemon" },
     { to: "/dance", label: "Tanzen" },
     { to: "/finanz", label: "Finanzen" },
     { to: "/herbalism", label: "Herbalism" },
