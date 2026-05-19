@@ -26,7 +26,7 @@ function DancePage() {
   return (
     <div
       className="w-full min-h-screen 
-      bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-300 
+      bg-linear-to-br from-pink-300 via-purple-300 to-indigo-300 
       flex justify-center items-start p-10"
     >
       <div

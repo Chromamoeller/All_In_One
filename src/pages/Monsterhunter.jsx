@@ -1,8 +1,8 @@
+import Weapon from "../components/monsterhunter/Weapon";
 function Monsterhunter() {
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Monsterhunter</h1>
-      <p>Hier findest du Informationen zum Thema Monsterhunter.</p>
+      <Weapon />
     </div>
   );
 }

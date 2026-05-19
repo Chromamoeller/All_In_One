@@ -6,7 +6,7 @@ function Herbalism() {
   return (
     <div
       className="relative w-full min-h-screen p-8 flex flex-wrap justify-center gap-10 
-                    bg-gradient-to-br from-green-200 via-emerald-100 to-lime-200
+                    bg-linear-to-br from-green-200 via-emerald-100 to-lime-200
                     overflow-hidden"
     >
       <DisplayAllHerbs />
